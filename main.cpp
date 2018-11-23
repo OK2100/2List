@@ -24,7 +24,7 @@ class C2List
 		SListElem *getLast();
 		unsigned int sizeofList();
 		void clearList();
-		void printList();
+		void printList(unsigned int);
 		void addElem(unsigned int, int);
 		void deleteElem(unsigned int);
 };
@@ -39,7 +39,7 @@ C2List::C2List()
 
 C2List::~C2List()
 {
-
+	clearList();
 }
 
 
@@ -57,21 +57,39 @@ SListElem* C2List::getLast()
 
 void C2List::clearList()
 {
+	int N = sizeofList();
 	
+	for (int i = 1; i <= N; i++){
+		deleteElem(0);
+	}	
 }
 
 
-void C2List::printList()
+void C2List::printList( unsigned int side)
 {
-	SListElem *pointer = pFirst;
+	SListElem *pointer = NULL;
 	int N = sizeofList();
 	
+	cout << '\n';
+
 	if (N > 0){
-		for (int i = 1; i <= N; i++){
-			cout << pointer->Data << ' ';
-			pointer = pointer->pNext;
+
+		if (side == 0){
+			pointer = pFirst;
+			for (int i = 1; i <= N; i++){
+				cout << pointer->Data << ' ';
+				pointer = pointer->pNext;
+			}
+		}
+		else if (side ==1){
+			pointer = pLast;
+			for (int i = 1; i <= N; i++){
+				cout << pointer->Data << ' ';
+				pointer = pointer->pPrev;
+			}
 		}
 	}
+
 	else{
 		cout << "List is empty";
 	}
@@ -162,42 +180,58 @@ void C2List::deleteElem (unsigned int side)
 int main()
 {
  	C2List L1;
-	
-	L1.addElem(1,5);
-	L1.addElem(0,4);
-	L1.addElem(1,3);
-	L1.addElem(0,5);
-	L1.addElem(0,7);
-	L1.addElem(1,0);
-	L1.addElem(1,9);
-	
-	L1.printList();
+	int isExit = 0;
+	int user_Action = 0;
+	int newData = 0;
+	unsigned int side = 0;
 
-	L1.deleteElem(0);
-	L1.deleteElem(1);
-	L1.deleteElem(0);
-	L1.deleteElem(0);
-	L1.deleteElem(1);
-	L1.deleteElem(1);
-	L1.deleteElem(0);
-	L1.deleteElem(0);
+	while ( isExit != 1){
+		cout << "Choose action.." << '\n'
+		<< "1 - add Element" << '\n'
+		<< "2 - delete Element" << '\n'
+		<< "3 - clear List" << '\n'
+		<< "4 - print List" << '\n'
+		<< "5 - to exit" << '\n';
+		cin >> user_Action;
+		
+	switch (user_Action)
+	{
+		case 1:{
+			cout << "Enter new Data..";
+			cin >> newData;
+			cout << "Enter side (0 - left, 1 - right)..";
+			cin >> side;
+			L1.addElem( side, newData);
+		}break;
 
-	L1.printList();
+		case 2:{
+			cout << "Enter side (0 - left, 1 - right)..";
+			cin >> side;
+			L1.deleteElem( side );
+		}break;
 
+		case 3:{
+			L1.clearList();
+		}break;
+
+		case 4:{
+			cout << "Enter side (0 - left, 1 - right)..";
+			cin >> side;
+			L1.printList( side );
+		}break;
+
+		case 5:{
+			isExit = 1;
+		}break;
+
+		default:{
+			cout << "Wrong entering" << '\n';
+		}
+	}
+		cout << '\n';
+	}
 	
 
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
