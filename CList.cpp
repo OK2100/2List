@@ -149,3 +149,69 @@ void C2List::deleteElem (unsigned int side)
 	}
 }
 
+
+SListElem* C2List::search (int Data, unsigned int whichone = 1, bool isReverse = 0)
+{
+	unsigned int N = sizeofList();
+	unsigned int counter = 1;
+	SListElem* pointer;
+	
+	if (isReverse == 0){
+		pointer = pFirst;
+		for (int i = 1; i <= N; i++){
+
+			if ( pointer->Data == Data ){
+				if ( counter != whichone ){
+					counter++;
+				}
+				else if (counter == whichone){
+					return pointer;
+				}
+				else{
+					cout << '\n' << "Error with counter1" << '\n';
+				}
+			}
+
+			pointer = pointer->pNext; 
+		}
+
+	} 
+	else if(isReverse == 1){
+		pointer = pLast;
+		for (int i = 1; i <= N; i++){
+
+			if (pointer->Data == Data ){
+				if ( counter != whichone ){
+					counter++;
+				}
+				else if (counter == whichone){
+					return pointer;
+				}
+				else{
+					cout << '\n' << "Error with counter2" << '\n';
+				}
+			}
+
+			pointer = pointer->pPrev;
+		}
+	}
+	else{
+		cout << '\n' << "ERROR: Wrong entering" << '\n';
+	}
+}
+
+
+void C2List::createList( unsigned int size )
+{
+	int Data;
+	unsigned int side = 1;
+	cout << "Enter Data" << '\n';
+	for (int i = 1; i <= size; i++){
+		cout << i << ")";
+		cin >> Data;
+		addElem(side, Data);
+	}
+}
+
+
+

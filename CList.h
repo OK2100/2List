@@ -5,7 +5,7 @@ struct SListElem
 {
 	public:
 		int Data;
-	private:
+//	private:
 		SListElem *pPrev;
 		SListElem *pNext;
 
@@ -27,6 +27,8 @@ class C2List
 		void printList(unsigned int);
 		void addElem(unsigned int, int);
 		void deleteElem(unsigned int);
+		SListElem* search(int, unsigned int, bool);
+		void createList (unsigned int);
 };
 
 //#endif
